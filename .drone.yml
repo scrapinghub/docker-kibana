@@ -6,5 +6,5 @@ script:
 publish:
   docker:
     docker_host: $DOCKER_HOST
-    image_name: i.scrapinghub.com/kibana4/$CI_BRANCH
+    image_name: i.scrapinghub.com/kibana/$CI_BRANCH
     keep_build: true
