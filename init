@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ $1 == "kibana_start" ]; then
+    sed -i "s/@ES_HOST@/$ES_PORT_9200_TCP_ADDR/g" /etc/nginx/sites-available/kibana*
+    sed -i "s/@ES_PORT@/$ES_PORT_9200_TCP_PORT/g" /etc/nginx/sites-available/kibana*
+    if [ "$KIBANA_SECURE" = "true" ] ; then
+        ln -s /etc/nginx/sites-available/kibana-secure /etc/nginx/sites-enabled/kibana
+        htpasswd -bc /etc/kibana/htpasswd ${KIBANA_USER} ${KIBANA_PASSWORD}
+    else
+        ln -s /etc/nginx/sites-available/kibana /etc/nginx/sites-enabled/kibana
+    fi
+
+    /usr/sbin/nginx
+else
+    $*
+fi
