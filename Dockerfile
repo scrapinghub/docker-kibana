@@ -5,7 +5,7 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install wget nginx-full apache2-utils supervisor
 
 WORKDIR /opt
-RUN wget --no-check-certificate -O- https://download.elastic.co/kibana/kibana/kibana-4.1.0-linux-x64.tar.gz | tar xvfz -
+RUN wget --no-check-certificate -O- https://download.elastic.co/kibana/kibana/kibana-4.1.2-linux-x64.tar.gz | tar xvfz -
 RUN mkdir /etc/kibana # This is where the htpasswd file is placed by the run script
 
 ADD kibana /etc/nginx/sites-available/kibana
