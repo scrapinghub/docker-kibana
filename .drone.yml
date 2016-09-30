@@ -1,10 +1,8 @@
-image: bradrydzewski/python:2.7-scrapinghub
+image: scrapinghub
+
+env:
+  - APPNAME=kibana
 
 script:
-  - git restore-mtime
-
-publish:
-  docker:
-    docker_host: $DOCKER_HOST
-    image_name: i.scrapinghub.com/kibana/$CI_BRANCH
-    keep_build: true
+  - build_docker_image
+  - push_docker_image
