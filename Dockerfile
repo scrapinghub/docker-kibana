@@ -21,6 +21,9 @@ EXPOSE 80
 
 ADD supervisord.conf /etc/supervisor/conf.d/kibana.conf
 
+# Install x-pack
+RUN /opt/kibana-5.1.1-linux-x86_64/bin/kibana-plugin install x-pack
+
 ADD run ./run
 RUN chmod +x ./run
 CMD ./run
