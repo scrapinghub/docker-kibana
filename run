@@ -1,9 +1,10 @@
 #!/bin/bash
 sed -i "s/#*elasticsearch.url.*/elasticsearch.url: \"http:\/\/$ES_PORT_9200_TCP_ADDR:$ES_PORT_9200_TCP_PORT\"/g" /opt/kibana-5.1.1-linux-x86_64/config/kibana.yml
+echo "xpack.security.enabled: false" >> /opt/kibana-5.1.1-linux-x86_64/config/kibana.yml
 if [ "$KIBANA_SECURE" = "true" ] ; then
-	ln -s /etc/nginx/sites-available/kibana-secure /etc/nginx/sites-enabled/kibana
-	htpasswd -bc /etc/kibana/htpasswd ${KIBANA_USER} ${KIBANA_PASSWORD}
+    ln -s /etc/nginx/sites-available/kibana-secure /etc/nginx/sites-enabled/kibana
+    htpasswd -bc /etc/kibana/htpasswd ${KIBANA_USER} ${KIBANA_PASSWORD}
 else
-	ln -s /etc/nginx/sites-available/kibana /etc/nginx/sites-enabled/kibana
+    ln -s /etc/nginx/sites-available/kibana /etc/nginx/sites-enabled/kibana
 fi
 /usr/bin/supervisord -c /etc/supervisor/conf.d/kibana.conf
