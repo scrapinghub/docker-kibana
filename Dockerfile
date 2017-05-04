@@ -5,7 +5,7 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install wget nginx-full apache2-utils supervisor
 
 WORKDIR /opt
-RUN wget --no-check-certificate -O- https://artifacts.elastic.co/downloads/kibana/kibana-5.1.1-linux-x86_64.tar.gz | tar xvfz -
+RUN wget --no-check-certificate -O- https://artifacts.elastic.co/downloads/kibana/kibana-5.3.2-linux-x86_64.tar.gz | tar xvfz -
 RUN mkdir /etc/kibana # This is where the htpasswd file is placed by the run script
 
 ADD kibana /etc/nginx/sites-available/kibana
@@ -22,7 +22,7 @@ EXPOSE 80
 ADD supervisord.conf /etc/supervisor/conf.d/kibana.conf
 
 # Install x-pack
-RUN /opt/kibana-5.1.1-linux-x86_64/bin/kibana-plugin install x-pack
+RUN /opt/kibana-5.3.2-linux-x86_64/bin/kibana-plugin install x-pack
 
 ADD run ./run
 RUN chmod +x ./run
