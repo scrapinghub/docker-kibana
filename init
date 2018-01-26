@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Allow to add custom dashboards from folder
+if [[ -d "$CUSTOM_DASHBOARDS_FOLDER" ]]; then
+    # Copy custom dashboards to /opt/kibana-*/app/dashboards/
+    cp $CUSTOM_DASHBOARDS_FOLDER/*.js{on,} /opt/kibana-*/app/dashboards/
+fi
+
 if [ $1 == "kibana_start" ]; then
     sed -i "s/@ES_HOST@/$ES_PORT_9200_TCP_ADDR/g" /etc/nginx/sites-available/kibana*
     sed -i "s/@ES_PORT@/$ES_PORT_9200_TCP_PORT/g" /etc/nginx/sites-available/kibana*
